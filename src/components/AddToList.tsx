@@ -6,7 +6,7 @@ interface IProps {
   setPeople: React.Dispatch<React.SetStateAction<Props["people"]>>;
 }
 
-const AddToList: React.FC<IProps> = () => {
+const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
   const [input, setInput] = useState({
     name: "",
     age: "",
@@ -23,7 +23,27 @@ const AddToList: React.FC<IProps> = () => {
     });
   };
 
-  const handleClick = (): void => {};
+  const handleClick = (): void => {
+    input.name &&
+      input.age &&
+      input.img &&
+      setPeople([
+        ...people,
+        {
+          name: input.name,
+          age: parseInt(input.age),
+          url: input.img,
+          note: input.note,
+        },
+      ]);
+
+    setInput({
+      name: "",
+      age: "",
+      img: "",
+      note: "",
+    });
+  };
   return (
     <div className="AddToList">
       <input
